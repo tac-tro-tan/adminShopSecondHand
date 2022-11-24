@@ -1,0 +1,80 @@
+/*******************/
+/********************/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap");
+
+/*******************/
+/********************/
+/*******************/
+/********************/
+/*******************/
+/********************/
+/*******************/
+/********************/
+/*******************/
+/********************/
+/*******************/
+/********************/
+.sidebarArea {
+  flex-shrink: 0;
+  width: 260px;
+  background-color: #1e2a35;
+}
+
+.sidebarArea .nav-link {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebarArea .sidenav-bg:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.3rem;
+}
+
+.sidebarArea .sidenav-bg:hover .nav-link {
+  color: white;
+}
+
+.sidebarArea .sidenav-bg .active {
+  background-color: #2962ff;
+  border-radius: 0.3rem;
+  color: white;
+}
+
+.pageWrapper {
+  min-height: 100vh;
+}
+
+.contentArea {
+  flex-grow: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.card {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.circle-box {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 100%;
+}
+
+.circle-box.lg-box {
+  width: 60px;
+  height: 60px;
+  font-size: 21px;
+  line-height: 60px;
+}
+
+.button-group .btn {
+  margin: 3px;
+}
+
+table th {
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=style.css.map */

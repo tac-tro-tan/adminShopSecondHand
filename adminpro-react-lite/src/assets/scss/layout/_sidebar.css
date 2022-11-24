@@ -1,0 +1,24 @@
+.sidebarArea {
+    flex-shrink: 0;
+    width: 260px;
+    background-color: #1e2a35;
+}
+
+.sidebarArea .nav-link {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebarArea .sidenav-bg:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.3rem;
+}
+
+.sidebarArea .sidenav-bg:hover .nav-link {
+    color: white;
+}
+
+.sidebarArea .sidenav-bg .active {
+    background-color: #2962ff;
+    border-radius: 0.3rem;
+    color: white;
+}
