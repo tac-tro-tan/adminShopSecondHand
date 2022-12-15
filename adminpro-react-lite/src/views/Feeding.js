@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
     Card, CardBody, CardTitle, CardSubtitle,
@@ -6,10 +7,13 @@ import {
     ListGroupItem,
     Button
 } from "reactstrap";
+import { selectCustomer } from "../store/userSlice";
 
 import PaginationComponent from "./pagination/paginationComponent";
 
 function Feed({privatee}) {
+    const { id, jwtToken } = useSelector(selectCustomer);
+
 
     const[pagee,setPagee]= useState(0);
 
@@ -27,7 +31,11 @@ function Feed({privatee}) {
         const fetchData = async (req, res) => {
             try {
                 const requestOptions = {
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                      'accept': ' text/plain',
+                      'Authorization': 'Bearer ' + jwtToken
+                    }
                 };
                 const response = await fetch('https://localhost:7071/api/Feedback/get?page='+pagee+'&pageSize=5', requestOptions)
                 const data = await response.json();

@@ -8,7 +8,7 @@ class PaginationComponent extends Component {
     this.state = {
       totalRecords: 0,
       activePage: 1,
-      limit: 6
+      limit: 5
     };
   }
   //Handle total records if comes

@@ -13,7 +13,13 @@ const initialState = {
   "phone": "7613685691",
   "address": "4996 Autumn Leaf Pass",
   "url_Image": "string",
-  "jwtToken": ""
+  "jwtToken": "",
+  "roles": [
+    {
+      "id": "",
+      "name": ""
+    }
+  ]
 };
 
 // Cấu hình slice
@@ -36,6 +42,8 @@ export const userSlice = createSlice({
       state.phone = action.payload.phone;
       state.address = action.payload.address;
       
+      state.roles[0].id = action.payload.roles[0].id;
+      state.roles[0].name = action.payload.roles[0].name;
       state.url_Image = action.payload.url_Image;
       state.jwtToken = action.payload.jwtToken;
     }

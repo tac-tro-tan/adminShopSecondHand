@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { selectCustomer } from "../store/userSlice";
 
 
 function DetailFeed() {
+    const { id, jwtToken } = useSelector(selectCustomer);
+
     //thông báo
     const createNotification = (type) => {
         switch (type) {
@@ -40,18 +44,26 @@ function DetailFeed() {
         const fetchData = async (req, res) => {
             try {
                 const requestOptions = {
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                      'accept': ' text/plain',
+                      'Authorization': 'Bearer ' + jwtToken
+                    }
                 };
                 const response = await fetch('https://localhost:7071/api/Feedback/' + idSP, requestOptions)
                 const data = await response.json();
                 setDetail(data);
 
                 const requestOptions2 = {
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                      'accept': ' text/plain',
+                      'Authorization': 'Bearer ' + jwtToken
+                    }
                 };
-                const response2 = await fetch('https://localhost:7071/api/Account/get', requestOptions2)
+                const response2 = await fetch('https://localhost:7071/api/Account/'+data.accountId, requestOptions2)
                 const data2 = await response2.json();
-                setTableData(data2.find(e => e.id = data.accountId));
+                setTableData(data2);
 
             } catch (error) {
                 res.send(error.stack);

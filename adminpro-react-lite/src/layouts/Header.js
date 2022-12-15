@@ -65,7 +65,7 @@ const Header = () => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
-          <NavItem>
+          {/* <NavItem>
             <Link to="/starter" className="nav-link">
               Starter
             </Link>
@@ -79,7 +79,7 @@ const Header = () => {
             <Link to="/gopy" className="nav-link">
               Feeds
             </Link>
-          </NavItem>
+          </NavItem> */}
           {/* <UncontrolledDropdown inNavbar nav>
             <DropdownToggle caret nav>
               Đăng nhập/Tên admin

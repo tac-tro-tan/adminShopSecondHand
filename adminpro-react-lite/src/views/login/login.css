@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .body1 {
@@ -16,7 +15,10 @@
 }
 
 .wrapper {
-    max-width: 390px;
+    margin: 10vh;
+    height: 80vh;
+    
+    width: 350px;
     background: #fff;
     padding: 30px;
     border-radius: 20px;
@@ -74,7 +76,7 @@
 .slide-controls .slide-tab {
     position: absolute;
     height: 100%;
-    width: 50%;
+    width: 100%;
     left: 0;
     border-radius: 5px;
     z-index: 0;

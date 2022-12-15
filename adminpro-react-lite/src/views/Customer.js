@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 import user4 from "../assets/images/users/user4.jpg";
+import { selectCustomer } from "../store/userSlice";
 import PaginationComponent from "./pagination/paginationComponent";
 
 function Customer({ privatee }) {
+    const { id, jwtToken } = useSelector(selectCustomer);
 
     const [tableData, setTableData] = useState([]);
 
@@ -29,7 +32,11 @@ function Customer({ privatee }) {
         const fetchData = async (req, res) => {
             try {
                 const requestOptions = {
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                        'accept': ' text/plain',
+                        'Authorization': 'Bearer ' + jwtToken
+                    }
                 };
                 const response = await fetch('https://localhost:7071/api/Account/get', requestOptions)
                 const data = await response.json();
@@ -50,15 +57,18 @@ function Customer({ privatee }) {
             try {
                 const requestOptions = {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                      'accept': ' text/plain',
+                      'Authorization': 'Bearer ' + jwtToken
+                    },
                     body: JSON.stringify({})
                 };
                 const response = await fetch('https://localhost:7071/api/Account/lock?id=' + e.id, requestOptions)
                     .then(response => response.json())
                     .then(data => {
-                        setTableData([...tableData].map(obj=>{
-                            if(obj.title == data.title)
-                            return data;
+                        setTableData([...tableData].map(obj => {
+                            if (obj.title == data.title)
+                                return data;
                             else return obj
                         }))
                     });
@@ -70,15 +80,18 @@ function Customer({ privatee }) {
             try {
                 const requestOptions = {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                      'accept': ' text/plain',
+                      'Authorization': 'Bearer ' + jwtToken
+                    },
                     body: JSON.stringify({})
                 };
                 const response = await fetch('https://localhost:7071/api/Account/open?id=' + e.id, requestOptions)
                     .then(response => response.json())
                     .then(data => {
-                        setTableData([...tableData].map(obj=>{
-                            if(obj.title == data.title)
-                            return data;
+                        setTableData([...tableData].map(obj => {
+                            if (obj.title == data.title)
+                                return data;
                             else return obj
                         }))
                     });
@@ -90,7 +103,7 @@ function Customer({ privatee }) {
             fetchDataLock();
         }
         else fetchDataOpen();
-        
+
         console.log(tableData);
     }
     //xóa khách hàng
@@ -144,7 +157,7 @@ function Customer({ privatee }) {
                                         <button className=
                                             {tdata.status ? "btn btn-outline-primary" : "btn btn-outline-danger"}
                                             onClick={() => { changeStatus(tdata) }}>
-                                            {tdata.status ? "hoạt động" : "bị chặn"}</button>
+                                            {tdata.status ? "chưa khóa" : "đã bị khóa"}</button>
                                     </td>
                                     <td>
                                         <button className="btn btn-outline-primary"

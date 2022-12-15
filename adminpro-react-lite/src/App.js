@@ -12,17 +12,20 @@ import Feed from "./views/Feeding.js";
 import Login from "./views/login/login.js";
 import { selectCustomer } from "./store/userSlice.js";
 import Protected from "./components/protectPath/protected.js";
+import NoiBat from "./views/NoiBat.js";
+import XacNhanNoiBat from "./views/XacNhanNoiBat.js";
 
 function App() {
   
-  const { title } = useSelector(selectCustomer);
-  console.log(title)
+  const { title, roles } = useSelector(selectCustomer);
+  console.log(roles);
+  console.log(title);
   /*****Routes******/
   const routing = useRoutes(
     [
       {
         path: "/",
-        element: <Protected isLoggedIn={title}><FullLayout /></Protected >,
+        element: <Protected isLoggedIn={roles[0].name === "ADMIN"}><FullLayout /></Protected >,
         children: [
           { path: "*", element: <Navigate to="/starter" /> },
           { path: "/starter", exact: true, element: <Starter /> },
@@ -30,6 +33,8 @@ function App() {
           { path: "/khachhang", exact: true, element: <Customer privatee={true} /> },
           { path: "/gopy", exact: true, element: <Feed privatee={true} /> },
           { path: "/chitietgopy/:id", exact: true, element: <DetailFeed /> },
+          { path: "/noibat", exact: true, element: <NoiBat /> },
+          { path: "/xacnhannoibat", exact: true, element: <XacNhanNoiBat /> },
         ],
       },
       { path: "/dangnhap", exact: true, element: <Login /> }

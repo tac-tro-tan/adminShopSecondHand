@@ -8,24 +8,24 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Customer",
+    title: "Khách hàng",
     href: "/khachhang",
     icon: "bi bi-people",
   },
   {
-    title: "Feeds",
+    title: "Góp ý",
     href: "/gopy",
     icon: "bi bi-card-text",
   },
   {
-    title: "Featured",
+    title: "Sản phẩm hot",
     href: "/noibat",
     icon: "bi bi-list",
   },
   {
-    title: "Export",
-    href: "/",
-    icon: "bi bi-file-earmark-excel",
+    title: "Quảng cáo",
+    href: "/xacnhannoibat",
+    icon: "bi bi-list",
   },
   {
     title: "About",
