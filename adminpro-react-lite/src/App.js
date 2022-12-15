@@ -19,7 +19,8 @@ function App() {
   
   const { title, roles } = useSelector(selectCustomer);
   console.log(roles);
-  console.log(title);
+  
+  
   /*****Routes******/
   const routing = useRoutes(
     [

@@ -87,13 +87,12 @@ function XacNhanNoiBat() {
         <div>
             <Card>
                 <CardBody>
-                    <CardTitle tag="h5">Xác nhận sản phẩm hot</CardTitle>
+                    <CardTitle tag="h5">Xác nhận quảng cáo sản phẩm</CardTitle>
                     <Table className="no-wrap mt-1 align-middle" responsive borderless>
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>Tên sản phẩm</th>
-                                <th>Thời gian hot</th>
+                                <th>Thời gian quảng cáo</th>
                                 <th>Xác nhận</th>
 
                             </tr>
@@ -101,14 +100,6 @@ function XacNhanNoiBat() {
                         <tbody>
                             {state.data.map((XacNhanNoiBat, index) => (
                                 <tr key={index} className="border-top">
-
-                                    <td><Button
-                                        className="rounded-circle me-3"
-                                        size="sm"
-                                        color={XacNhanNoiBat.color}
-                                    >
-                                        <i className={"bi bi-bell"}></i>
-                                    </Button></td>
                                     <td><div className="mx-2">{XacNhanNoiBat.name}</div></td>
                                     <td> 14 ngày</td>
                                     <td>

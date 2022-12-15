@@ -92,18 +92,18 @@ function DetailFeed() {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Tiêu đề</Form.Label>
                             <Form.Control type="input" placeholder="title"
-                                defaultValue={detail.title}
+                                defaultValue={detail.title} disabled
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Người gửi</Form.Label>
                             <Form.Control type="input" placeholder="title"
-                                defaultValue={tableData.title}
+                                defaultValue={tableData.title} disabled
                             />
                         </Form.Group>
                         <Form.Label>Nội dung cụ thể:</Form.Label>
                         <FloatingLabel controlId="floatingTextarea2">
-                            <Form.Control as="textarea" placeholder="content"
+                            <Form.Control as="textarea" placeholder="content" disabled
                                 style={{ height: '13rem' }} defaultValue={detail.content}
                             />
                         </FloatingLabel>

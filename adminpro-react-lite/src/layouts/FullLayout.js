@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Container } from "reactstrap";
 
 const FullLayout = () => {
-
+  
   return (
     <main>
       {/********header**********/}

@@ -78,7 +78,7 @@ function Feed({privatee}) {
                                     >
                                         <i className={"bi bi-bell"}></i>
                                     </Button>
-                                    <div className="mx-2">{feed.title}</div>
+                                    <div className="mx-4">{feed.title}</div>
                                     
                                     <small className="mx-2 ms-auto text-muted text-small">
                                         {feed.date}

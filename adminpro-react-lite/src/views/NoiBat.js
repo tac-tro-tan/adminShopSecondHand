@@ -92,7 +92,7 @@ function NoiBat() {
                     <Table className="no-wrap mt-1 align-middle" responsive borderless>
                         <thead>
                             <tr>
-                                <th></th>
+                                
                                 <th>Tên sản phẩm</th>
                                 <th>Thời gian hết hạn</th>
                                 <th>Xóa</th>
@@ -102,14 +102,6 @@ function NoiBat() {
                         <tbody>
                             {state.data.map((NoiBat, index) => (
                                 <tr key={index} className="border-top">
-
-                                    <td><Button
-                                        className="rounded-circle me-3"
-                                        size="sm"
-                                        color={NoiBat.color}
-                                    >
-                                        <i className={"bi bi-bell"}></i>
-                                    </Button></td>
                                     <td><div className="mx-2">{NoiBat.name}</div></td>
                                     <td> {NoiBat.time}</td>
                                     <td>
