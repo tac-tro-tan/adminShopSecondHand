@@ -8,11 +8,26 @@ import {
     Table
 } from "reactstrap";
 import { selectCustomer } from "../store/userSlice";
-
+import Popup from "../components/deleteModal/Popup";
+import { NotificationManager } from 'react-notifications';
 import PaginationComponent from "./pagination/paginationComponent";
 
 function XacNhanNoiBat() {
     const { id, jwtToken } = useSelector(selectCustomer);
+
+    //thông báo
+    const createNotification = (type) => {
+        switch (type) {
+            case 'success':
+                NotificationManager.success('Đã quảng cáo sản phẩm', 'Thành công');
+                break;
+            case 'error':
+                NotificationManager.error('Đã có lỗi gì đó xảy ra', 'Thất bại', 3000);
+                break;
+            default:
+                alert("kill me, i'm here");
+        }
+    }
 
     const[dataXoa,setDataXoa] = useState({});
 
@@ -76,12 +91,17 @@ function XacNhanNoiBat() {
                 const response = await fetch('https://localhost:7071/api/Item/pay?id=' + e, requestOptions)
                 const data = await response.json();
                 setDataXoa(data);
+                createNotification('success');
             } catch (error) {
                 res.send(error.stack);
             }
         }
         fetchData();
     }
+
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(!show);
 
     return (
         <div>
@@ -104,8 +124,10 @@ function XacNhanNoiBat() {
                                     <td> 14 ngày</td>
                                     <td>
                                         <button className="btn btn-outline-primary"
-                                            onClick={() => { cancelXacNhanNoiBat(XacNhanNoiBat.id) }}>Xác Nhận</button>
+                                            onClick={() => { handleShow(); }}>Xác Nhận</button>
                                     </td>
+                                    <Popup handleDeleteTrue={()=>cancelXacNhanNoiBat(XacNhanNoiBat.id)} 
+                                    handleShow={handleShow} show={show}></Popup>
                                 </tr>
                             ))}
                         </tbody>
@@ -117,6 +139,7 @@ function XacNhanNoiBat() {
                             totalRecords={state.totalRecords}
                             itemsCountPerPage={5} />
                     }
+                    
                 </CardBody>
             </Card>
         </div>

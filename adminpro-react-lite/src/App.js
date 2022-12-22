@@ -14,13 +14,14 @@ import { selectCustomer } from "./store/userSlice.js";
 import Protected from "./components/protectPath/protected.js";
 import NoiBat from "./views/NoiBat.js";
 import XacNhanNoiBat from "./views/XacNhanNoiBat.js";
+import { NotificationContainer } from "react-notifications";
 
 function App() {
-  
+
   const { title, roles } = useSelector(selectCustomer);
   console.log(roles);
-  
-  
+
+
   /*****Routes******/
   const routing = useRoutes(
     [
@@ -42,7 +43,10 @@ function App() {
     ]
   );
 
-  return (<div className="dark">{routing}</div>);
+  return (<div>
+    <div className="dark">{routing}</div>
+    <NotificationContainer />
+  </div>);
 };
 
 export default App;

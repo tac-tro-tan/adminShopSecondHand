@@ -1,11 +1,24 @@
 // @ts-nocheck
 import React, { useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateCustomer } from "../../store/userSlice";
 import './login.css'
 function Login() {
-
+    //thông báo
+    const createNotification = (type) => {
+        switch (type) {
+            case 'success':
+                NotificationManager.success('Đăng nhập thành công', 'Thành công');
+                break;
+            case 'error':
+                NotificationManager.error('Đã có lỗi gì đó xảy ra', 'Thất bại', 3000);
+                break;
+            default:
+                alert("kill me, i'm here");
+        }
+    }
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [pass, setPass] = useState("")
@@ -29,7 +42,9 @@ function Login() {
                     .then(data => {
                         dispatch(updateCustomer(data))
                     });
+                createNotification('success')
             } catch (error) {
+                createNotification('error')
                 res.send(error.stack);
             }
         }

@@ -5,9 +5,25 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 import user4 from "../assets/images/users/user4.jpg";
 import { selectCustomer } from "../store/userSlice";
 import PaginationComponent from "./pagination/paginationComponent";
+import Popup from "../components/deleteModal/Popup";
+import { NotificationManager } from 'react-notifications';
 
 function Customer({ privatee }) {
     const { id, jwtToken } = useSelector(selectCustomer);
+    const [deleteRender, setDeleteRender] = useState(true);
+    //thông báo
+    const createNotification = (type) => {
+        switch (type) {
+            case 'success':
+                NotificationManager.success('Đã xóa account khách hàng', 'Thành công');
+                break;
+            case 'error':
+                NotificationManager.error('Đã có lỗi gì đó xảy ra', 'Thất bại', 3000);
+                break;
+            default:
+                alert("kill me, i'm here");
+        }
+    }
 
     const [tableData, setTableData] = useState([]);
 
@@ -46,7 +62,7 @@ function Customer({ privatee }) {
             }
         }
         fetchData();
-    }, [])
+    }, [deleteRender])
     //load trang 1 khi phân trang
     useEffect(() => {
         loadData(1)
@@ -58,8 +74,8 @@ function Customer({ privatee }) {
                 const requestOptions = {
                     method: 'POST',
                     headers: {
-                      'accept': ' text/plain',
-                      'Authorization': 'Bearer ' + jwtToken
+                        'accept': ' text/plain',
+                        'Authorization': 'Bearer ' + jwtToken
                     },
                     body: JSON.stringify({})
                 };
@@ -81,8 +97,8 @@ function Customer({ privatee }) {
                 const requestOptions = {
                     method: 'POST',
                     headers: {
-                      'accept': ' text/plain',
-                      'Authorization': 'Bearer ' + jwtToken
+                        'accept': ' text/plain',
+                        'Authorization': 'Bearer ' + jwtToken
                     },
                     body: JSON.stringify({})
                 };
@@ -107,9 +123,67 @@ function Customer({ privatee }) {
         console.log(tableData);
     }
     //xóa khách hàng
-    const deleteCustomer = (tdata) => {
-        console.log(tdata);
+    const deleteCustomer = (idCtm) => {
+        const fetchData = async () => {
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    'accept': ' text/plain',
+                    'Authorization': 'Bearer ' + jwtToken
+                },
+                // body: JSON.stringify()
+            };
+            const response = await fetch('https://localhost:7071/api/Account/' + idCtm, requestOptions)
+            const data = await response.json();
+            console.log(data);
+            createNotification('success');
+            setDeleteRender(!deleteRender);
+        }
+        fetchData();
+        //xóa sản phẩm của khách hàng bị xóa
+        const fetchData3 = async (req, res) => {
+            try {
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'accept': ' text/plain',
+                        'Authorization': 'Bearer ' + jwtToken,
+                        'Content-Type': ' application/json-patch+json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            "id": `${idCtm}`,
+                            "page": 0,
+                            "pageSize": 900
+                        })
+                };
+                const response = await fetch('https://localhost:7071/api/Item/searchaccount', requestOptions)
+                const data = await response.json();
+                data.results.forEach(element => {
+                    fetchData2(element.id);
+                });
+            } catch (error) {
+                res.send(error.stack);
+            }
+        }
+        fetchData3();
+        const fetchData2 = async (idProduct) => {
+            const requestOptions2 = {
+                method: 'DELETE',
+                headers: {
+                    'accept': ' text/plain',
+                    'Authorization': 'Bearer ' + jwtToken
+                }
+            };
+            const response2 = await fetch('https://localhost:7071/api/Item/' + idProduct, requestOptions2)
+            const data2 = await response2.json();
+        }
     }
+
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(!show);
+
     return (
         <div>
             <Card>
@@ -161,8 +235,10 @@ function Customer({ privatee }) {
                                     </td>
                                     <td>
                                         <button className="btn btn-outline-primary"
-                                            onClick={() => { deleteCustomer(tdata) }}>Xóa</button>
+                                            onClick={() => { handleShow(); }}>Xóa</button>
                                     </td>
+                                    <Popup handleDeleteTrue={() => deleteCustomer(tdata.id)} handleShow={handleShow}
+                                        show={show}></Popup>
                                 </tr>
                             ))}
                         </tbody>
@@ -173,6 +249,7 @@ function Customer({ privatee }) {
                             totalRecords={state.totalRecords}
                             itemsCountPerPage={5} />
                     }
+
                 </CardBody>
             </Card>
         </div>

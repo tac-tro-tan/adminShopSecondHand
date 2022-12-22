@@ -8,11 +8,26 @@ import {
     Table
 } from "reactstrap";
 import { selectCustomer } from "../store/userSlice";
-
+import Popup from "../components/deleteModal/Popup";
+import { NotificationManager } from 'react-notifications';
 import PaginationComponent from "./pagination/paginationComponent";
 
 function NoiBat() {
     const { id, jwtToken } = useSelector(selectCustomer);
+
+    //thông báo
+    const createNotification = (type) => {
+        switch (type) {
+            case 'success':
+                NotificationManager.success('Đã xóa quảng cáo sản phẩm', 'Thành công');
+                break;
+            case 'error':
+                NotificationManager.error('Đã có lỗi gì đó xảy ra', 'Thất bại', 3000);
+                break;
+            default:
+                alert("kill me, i'm here");
+        }
+    }
 
     const[dataXoa,setDataXoa] = useState({});
 
@@ -77,12 +92,17 @@ function NoiBat() {
                 const response = await fetch('https://localhost:7071/api/Item/cancel?id=' + e, requestOptions)
                 const data = await response.json();
                 setDataXoa(data);
+                createNotification('success');
             } catch (error) {
                 res.send(error.stack);
             }
         }
         fetchData();
     }
+
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(!show);
 
     return (
         <div>
@@ -106,8 +126,10 @@ function NoiBat() {
                                     <td> {NoiBat.time}</td>
                                     <td>
                                         <button className="btn btn-outline-primary"
-                                            onClick={() => { cancelNoiBat(NoiBat.id) }}>Xóa</button>
+                                            onClick={() => { handleShow(); }}>Xóa</button>
                                     </td>
+                                    <Popup handleDeleteTrue={()=>cancelNoiBat(NoiBat.id)} 
+                                    handleShow={handleShow} show={show}></Popup>
                                 </tr>
                             ))}
                         </tbody>
@@ -119,6 +141,7 @@ function NoiBat() {
                             totalRecords={state.totalRecords}
                             itemsCountPerPage={5} />
                     }
+                    
                 </CardBody>
             </Card>
         </div>

@@ -5,17 +5,18 @@ import {
     Card, CardBody, CardTitle, CardSubtitle,
     ListGroup,
     ListGroupItem,
-    Button
+    Button,
+    Table
 } from "reactstrap";
 import { selectCustomer } from "../store/userSlice";
 
 import PaginationComponent from "./pagination/paginationComponent";
 
-function Feed({privatee}) {
+function Feed({ privatee }) {
     const { id, jwtToken } = useSelector(selectCustomer);
 
 
-    const[pagee,setPagee]= useState(0);
+    const [pagee, setPagee] = useState(0);
 
     // phân trang
     const [state, setState] = useState({
@@ -24,7 +25,7 @@ function Feed({privatee}) {
     })
 
     const getPaginatedData = page => {
-        setPagee(page-1)
+        setPagee(page - 1)
     }
 
     useEffect(() => {
@@ -33,15 +34,15 @@ function Feed({privatee}) {
                 const requestOptions = {
                     method: 'GET',
                     headers: {
-                      'accept': ' text/plain',
-                      'Authorization': 'Bearer ' + jwtToken
+                        'accept': ' text/plain',
+                        'Authorization': 'Bearer ' + jwtToken
                     }
                 };
-                const response = await fetch('https://localhost:7071/api/Feedback/get?page='+pagee+'&pageSize=5', requestOptions)
+                const response = await fetch('https://localhost:7071/api/Feedback/get?page=' + pagee + '&pageSize=5', requestOptions)
                 const data = await response.json();
                 setState({
-                    data:data.results,
-                    totalRecords:data.total
+                    data: data.results,
+                    totalRecords: data.total
                 })
             } catch (error) {
                 res.send(error.stack);
@@ -63,30 +64,32 @@ function Feed({privatee}) {
                         </Link>
                     }
 
-                    <ListGroup flush className="mt-2">
-                        {state.data.map((feed, index) => (
-                            <Link to={"/chitietgopy/"+feed.id} style={{textDecoration:"none"}} key={index}>
-                                <ListGroupItem
-                                    key={index}
-                                    action
-                                    className="d-flex align-items-center p-3 border-0"
-                                >
-                                    <Button
-                                        className="rounded-circle me-3"
-                                        size="sm"
-                                        color={feed.color}
-                                    >
-                                        <i className={"bi bi-bell"}></i>
-                                    </Button>
-                                    <div className="mx-4">{feed.title}</div>
-                                    
-                                    <small className="mx-2 ms-auto text-muted text-small">
-                                        {feed.date}
-                                    </small>
-                                </ListGroupItem>
-                            </Link>
-                        ))}
-                    </ListGroup>
+                    <Table className="no-wrap mt-1 align-middle" responsive borderless>
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>xem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {state.data.map((feed, index) => (
+                                <tr className="border-top">
+                                    <td>
+                                        <div className="d-flex align-items-center">
+                                            <i className={"bi bi-bell p-1"}></i>
+                                            <Link to={"/chitietgopy/" + feed.id} style={{ textDecoration: "none" }} key={index}>
+                                                <h6 className="mb-0">{feed.title}</h6>
+                                                {/* <span className="text-muted">{feed.email}</span> */}
+                                            </Link>
+                                        </div>
+                                    </td>
+                                    <td>{feed.status == 2 ? <p style={{color:"red"}}>Đã đọc</p> : 
+                                    <p style={{color:"blue"}}>Chưa đọc</p>}</td>
+                                </tr>
+
+                            ))}
+                        </tbody>
+                    </Table>
                     {state.totalRecords > 5 && privatee &&
                         <PaginationComponent
                             getAllData={getPaginatedData}
