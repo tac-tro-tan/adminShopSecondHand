@@ -51,8 +51,7 @@ function Login() {
         fetchData();
         setTimeout(() => {
             navigate("/starter");
-        }, 800);
-        
+        }, 800);  
     }
 
     return (

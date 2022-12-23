@@ -10,6 +10,7 @@ import { NotificationManager } from 'react-notifications';
 
 function Customer({ privatee }) {
     const { id, jwtToken } = useSelector(selectCustomer);
+
     const [deleteRender, setDeleteRender] = useState(true);
     //thông báo
     const createNotification = (type) => {
@@ -26,7 +27,6 @@ function Customer({ privatee }) {
     }
 
     const [tableData, setTableData] = useState([]);
-
     // phân trang
     const [state, setState] = useState({
         data: [],
@@ -196,7 +196,6 @@ function Customer({ privatee }) {
                             </CardSubtitle>
                         </Link>
                     }
-
                     <Table className="no-wrap mt-1 align-middle" responsive borderless>
                         <thead>
                             <tr>
@@ -214,10 +213,8 @@ function Customer({ privatee }) {
                                         <div className="d-flex align-items-center">
                                             <img
                                                 src={tdata.url_Image == "string" ? user4 : tdata.url_Image}
-                                                className="rounded-circle"
-                                                alt="avatar"
-                                                width="45"
-                                                height="45"
+                                                className="rounded-circle" alt="avatar"
+                                                width="45" height="45"
                                             />
                                             <div className="">
                                                 <h6 className="mb-0">{tdata.title}</h6>
@@ -249,7 +246,6 @@ function Customer({ privatee }) {
                             totalRecords={state.totalRecords}
                             itemsCountPerPage={5} />
                     }
-
                 </CardBody>
             </Card>
         </div>
