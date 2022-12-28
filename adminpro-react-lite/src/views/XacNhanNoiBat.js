@@ -124,10 +124,10 @@ function XacNhanNoiBat() {
                                     <td> 14 ngày</td>
                                     <td>
                                         <button className="btn btn-outline-primary"
-                                            onClick={() => { handleShow(); }}>Xác Nhận</button>
+                                            onClick={()=>cancelXacNhanNoiBat(XacNhanNoiBat.id)}>Xác Nhận</button>
                                     </td>
-                                    <Popup handleDeleteTrue={()=>cancelXacNhanNoiBat(XacNhanNoiBat.id)} 
-                                    handleShow={handleShow} show={show}></Popup>
+                                    {/* <Popup handleDeleteTrue={()=>cancelXacNhanNoiBat(XacNhanNoiBat.id)} 
+                                    handleShow={handleShow} show={show}></Popup> */}
                                 </tr>
                             ))}
                         </tbody>

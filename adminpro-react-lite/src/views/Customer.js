@@ -136,6 +136,37 @@ function Customer({ privatee }) {
             const response = await fetch('https://localhost:7071/api/Account/' + idCtm, requestOptions)
             const data = await response.json();
             console.log(data);
+            const requestOptions2 = {
+                method: 'POST',
+                headers: {
+                  'accept': ' text/plain',
+                  'Content-Type': 'application/json-patch+json'
+                },
+                body: JSON.stringify(
+                  {
+                    "page": 0,
+                    "pageSize": 400
+                  })
+              };
+              const response2 = await fetch('https://localhost:7071/api/Item/get', requestOptions2)
+              const data2 = await response2.json();
+              const ddelete = data2.results.map(x=> x.accountId == idCtm)
+              for (let i = 0; i < ddelete.length; i++) {
+                const fetchData = async () => {
+                    const requestOptions = {
+                        method: 'DELETE',
+                        headers: {
+                            'accept': ' text/plain',
+                            'Authorization': 'Bearer ' + jwtToken
+                        }
+                    };
+                    const response = await fetch('https://localhost:7071/api/Item/' + ddelete[i].id, requestOptions)
+                    const data = await response.json();
+                }
+                fetchData();
+                
+              }
+      
             createNotification('success');
             setDeleteRender(!deleteRender);
         }
@@ -232,10 +263,10 @@ function Customer({ privatee }) {
                                     </td>
                                     <td>
                                         <button className="btn btn-outline-primary"
-                                            onClick={() => { handleShow(); }}>Xóa</button>
+                                            onClick={() => deleteCustomer(tdata.id)}>Xóa</button>
                                     </td>
-                                    <Popup handleDeleteTrue={() => deleteCustomer(tdata.id)} handleShow={handleShow}
-                                        show={show}></Popup>
+                                    {/* <Popup handleDeleteTrue={() => deleteCustomer(tdata.id)} handleShow={handleShow}
+                                        show={show}></Popup> */}
                                 </tr>
                             ))}
                         </tbody>

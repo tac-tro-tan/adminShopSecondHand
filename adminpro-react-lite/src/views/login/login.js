@@ -41,10 +41,11 @@ function Login() {
                     .then(response => response.json())
                     .then(data => {
                         dispatch(updateCustomer(data))
+                        if(!data.id) createNotification('error')
+                        else createNotification('success');
                     });
-                createNotification('success')
+                
             } catch (error) {
-                createNotification('error')
                 res.send(error.stack);
             }
         }

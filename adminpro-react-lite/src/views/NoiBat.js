@@ -126,10 +126,14 @@ function NoiBat() {
                                     <td> {NoiBat.time}</td>
                                     <td>
                                         <button className="btn btn-outline-primary"
+                                            onClick={()=>cancelNoiBat(NoiBat.id)}>Xóa</button>
+                                    </td>
+                                    {/* <td>
+                                        <button className="btn btn-outline-primary"
                                             onClick={() => { handleShow(); }}>Xóa</button>
                                     </td>
                                     <Popup handleDeleteTrue={()=>cancelNoiBat(NoiBat.id)} 
-                                    handleShow={handleShow} show={show}></Popup>
+                                    handleShow={handleShow} show={show}></Popup> */}
                                 </tr>
                             ))}
                         </tbody>
